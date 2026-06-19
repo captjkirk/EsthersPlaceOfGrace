@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <!-- temporary preview build; noindex so it does not compete with the live site in search -->
   <title>Esther's Place of Grace — Concept Redesign</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
@@ -663,6 +662,7 @@
     }
 
     /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) { .nav-tabs { display: none; } }
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; }
       .hero-card { display: none; }
@@ -713,7 +713,8 @@
       <a href="#page-program" class="nav-tab">Program</a>
       <a href="#page-volunteer" class="nav-tab">Volunteer</a>
       <a href="#page-donate" class="nav-tab">Donate</a>
-      <a href="#page-apply" class="nav-tab">Apply</a>
+      <a href="apply.html" class="nav-tab">Apply</a>
+      <a href="banquet.html" class="nav-tab">Banquet</a>
       <a href="#page-newsletters" class="nav-tab">Newsletter</a>
     </div>
     <a href="#page-donate" class="nav-donate-btn">Give Now</a>
@@ -805,6 +806,41 @@
   </section>
 
 </div>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════
+     SECTION: WAYS TO GET INVOLVED
+══════════════════════════════ -->
+<section class="section" style="background: var(--warm-white);">
+  <div class="section-inner">
+    <div class="section-header" style="text-align:center;">
+      <span class="section-eyebrow">Get Involved</span>
+      <h2 class="section-title">There's a place for <em>you</em> here.</h2>
+      <p class="section-body" style="margin:0 auto;">However you'd like to be part of the story, pick what fits and we'll take it from there.</p>
+    </div>
+    <div class="program-grid">
+      <div class="program-card">
+        <div class="prog-icon">🍽️</div>
+        <h3>Host a Luncheon</h3>
+        <p>Reserve a month, gather a few friends, and Mary comes to share about Esther's Place over a meal you host.</p>
+        <a href="luncheon.html" class="btn-purple" style="margin-top:16px;">Reserve a date →</a>
+      </div>
+      <div class="program-card">
+        <div class="prog-icon">🤝</div>
+        <h3>Volunteer</h3>
+        <p>Mentor a resident, drive to classes, babysit, or lend a hand around the home. There's a role for every skill.</p>
+        <a href="#page-volunteer" class="btn-purple" style="margin-top:16px;">See the ways →</a>
+      </div>
+      <div class="program-card">
+        <div class="prog-icon">💜</div>
+        <h3>Give</h3>
+        <p>A one-time or monthly gift provides a safe home and a fresh start for a woman and her child.</p>
+        <a href="#page-donate" class="btn-purple" style="margin-top:16px;">Donate →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="section-divider"></div>
 
@@ -988,8 +1024,8 @@
 
         <div class="luncheon-box">
           <p>🍽️ Host a Luncheon</p>
-          <p>Pick a date, invite 4–6 guests, and let us tell the story. At your home, a restaurant, or right here at the maternity home. You provide the food and the people — we'll handle the rest.</p>
-          <a href="https://www.signupgenius.com/go/10C0F4CAEAD2FA4F9CE9-61399321-luncheons">Sign up to host a luncheon →</a>
+          <p>Reserve a month, invite a few friends, and Mary will come share about Esther's Place over a meal you host. At your home, a restaurant, or right here at the maternity home.</p>
+          <a href="luncheon.html">Reserve a luncheon date →</a>
         </div>
       </div>
     </div>
@@ -1014,7 +1050,7 @@
           <div class="donate-icon">💜</div>
           <h3>Give Online</h3>
           <p>Make a one-time, monthly, or quarterly gift through our secure giving portal. Every amount — large or small — makes a real difference in a woman's life.</p>
-          <a href="http://engage.suran.com/esthersplaceofgrace/s/give/new-gift" class="btn-outline-purple">Donate Now →</a>
+          <a href="https://engage.suran.com/esthersplaceofgrace/s/give/new-gift?slug=203ef64c7d1442b" class="btn-outline-purple">Donate Now →</a>
         </div>
         <div class="donate-card">
           <div class="donate-icon">✉️</div>
@@ -1042,7 +1078,7 @@
           </ul>
         </div>
         <div>
-          <a href="http://engage.suran.com/esthersplaceofgrace/s/give/new-gift" class="btn-purple" style="display:block; text-align:center; white-space: nowrap;">Start Giving Monthly →</a>
+          <a href="https://engage.suran.com/esthersplaceofgrace/s/give/new-gift?slug=203ef64c7d1442b" class="btn-purple" style="display:block; text-align:center; white-space: nowrap;">Start Giving Monthly →</a>
         </div>
       </div>
     </div>
@@ -1054,72 +1090,6 @@
 <!-- ══════════════════════════════
      PAGE: APPLY
 ══════════════════════════════ -->
-<div id="page-apply">
-  <div class="apply-hero">
-    <h2>This could be your home, too.</h2>
-    <p>Esther's Place is a voluntary one-year program for single pregnant women ready to grow, heal, and build a stable future.</p>
-  </div>
-  <div class="apply-content">
-    <div class="apply-grid">
-      <div>
-        <h3 class="criteria-title">To be considered, you must:</h3>
-        <ul class="criteria-list">
-          <li><span class="crit-check">✓</span>Be 18–25 years of age and single (unmarried, divorced, or separated)</li>
-          <li><span class="crit-check">✓</span>Be pregnant and in your first or second trimester</li>
-          <li><span class="crit-check">✓</span>Not currently fleeing a domestic violence situation</li>
-          <li><span class="crit-check">✓</span>Be drug-free with at least 6 months of sobriety</li>
-          <li><span class="crit-check">✓</span>Be committed to the program's structure and expectations</li>
-          <li><span class="crit-check">✓</span>Pass a background check — no assault or disorderly conduct</li>
-        </ul>
-        <p style="font-size:13px; color: var(--text-light); margin-top: 18px; line-height: 1.7;">We are not an emergency shelter. Our program is designed for women who are ready to invest in building a different future. If that's you — we want to hear from you.</p>
-        <p style="margin-top: 16px; font-size: 14px;">
-          <a href="tel:6142260864" style="color: var(--purple-soft); font-weight: 600; text-decoration: none;">📞 Call us: 614-226-0864</a>
-        </p>
-      </div>
-      <div>
-        <div class="process-card">
-          <div class="process-title">How the process works</div>
-          <div class="proc-step">
-            <div class="proc-num">1</div>
-            <div class="proc-body">
-              <h4>Submit your inquiry</h4>
-              <p>Fill out the form below. We'll review your information and reach out within 48 hours.</p>
-            </div>
-          </div>
-          <div class="proc-step">
-            <div class="proc-num">2</div>
-            <div class="proc-body">
-              <h4>Phone screening</h4>
-              <p>A brief call to review the criteria and answer your questions about the program and what daily life looks like.</p>
-            </div>
-          </div>
-          <div class="proc-step">
-            <div class="proc-num">3</div>
-            <div class="proc-body">
-              <h4>In-person or video interview</h4>
-              <p>Meet with our House Manager to talk about your story, your goals, and what you're hoping for.</p>
-            </div>
-          </div>
-          <div class="proc-step">
-            <div class="proc-num">4</div>
-            <div class="proc-body">
-              <h4>Acceptance decision</h4>
-              <p>The full process — inquiry to move-in — typically takes 7–10 days.</p>
-            </div>
-          </div>
-          <div class="apply-contact-row">
-            <div class="contact-item">📞 <a href="tel:6142260864">614-226-0864</a></div>
-            <div class="contact-item">✉️ <a href="mailto:marydow@esthersplaceofgrace.com">marydow@esthers<wbr>placeofgrace.com</a></div>
-          </div>
-        </div>
-        <a href="https://www.esthersplaceofgrace.com/contact" class="btn-purple" style="display: block; text-align: center; margin-top: 18px;">Start Your Application →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="section-divider"></div>
-
 <!-- ══════════════════════════════
      PAGE: NEWSLETTERS
 ══════════════════════════════ -->
@@ -1170,28 +1140,28 @@
 
       <div class="nl-section-title">Annual Reports &amp; Documents</div>
       <div class="nl-grid">
-        <a class="nl-item" href="https://www.esthersplaceofgrace.com/_files/ugd/570570_ef16b4095eda4c93940dcf431376db39.pdf">
+        <a class="nl-item" href="resources.html">
           <span class="nl-icon">📋</span>
           <div class="nl-item-text">
             <div class="nl-item-title">2025 Annual Report</div>
             <div class="nl-item-date">Full year in review</div>
           </div>
         </a>
-        <a class="nl-item" href="https://www.esthersplaceofgrace.com/_files/ugd/570570_175b0dd077474e1b82f8e9368ef06028.pdf">
+        <a class="nl-item" href="resources.html">
           <span class="nl-icon">📋</span>
           <div class="nl-item-text">
             <div class="nl-item-title">2024 Annual Report</div>
             <div class="nl-item-date">Full year in review</div>
           </div>
         </a>
-        <a class="nl-item" href="https://www.esthersplaceofgrace.com/_files/ugd/ea09cf_df53a9a5c6ea43c889e55450c304db36.pdf">
+        <a class="nl-item" href="resources.html">
           <span class="nl-icon">📄</span>
           <div class="nl-item-text">
             <div class="nl-item-title">Statement of Faith</div>
             <div class="nl-item-date">EPOG doctrinal statement</div>
           </div>
         </a>
-        <a class="nl-item" href="https://www.esthersplaceofgrace.com/_files/ugd/ea09cf_d0ec93d737844cc68143a4a7d505797a.pdf">
+        <a class="nl-item" href="resources.html">
           <span class="nl-icon">📄</span>
           <div class="nl-item-text">
             <div class="nl-item-title">Rack Card</div>
@@ -1223,14 +1193,16 @@
       <a href="#page-program">Our Program</a>
       <a href="#page-volunteer">Volunteer</a>
       <a href="#page-donate">Donate</a>
-      <a href="#page-apply">Resident Application</a>
+      <a href="apply.html">Resident Application</a>
+      <a href="luncheon.html">Host a Luncheon</a>
+      <a href="banquet.html">Banquet</a>
       <a href="#page-newsletters">Newsletter</a>
     </div>
     <div class="footer-col">
       <h4>Resources</h4>
-      <a href="https://www.esthersplaceofgrace.com/_files/ugd/ea09cf_df53a9a5c6ea43c889e55450c304db36.pdf">Statement of Faith</a>
-      <a href="https://www.esthersplaceofgrace.com/_files/ugd/570570_ef16b4095eda4c93940dcf431376db39.pdf">2025 Annual Report</a>
-      <a href="https://www.esthersplaceofgrace.com/_files/ugd/ea09cf_d0ec93d737844cc68143a4a7d505797a.pdf">Rack Card</a>
+      <a href="resources.html">Statement of Faith</a>
+      <a href="resources.html">2025 Annual Report</a>
+      <a href="resources.html">Rack Card</a>
       <a href="https://www.heartbeatinternational.org/">Heartbeat International</a>
     </div>
     <div class="footer-col">

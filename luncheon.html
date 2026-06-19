@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Host a Luncheon — Esther's Place of Grace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --purple:#5C2880; --purple-soft:#7A44A0; --purple-pale:#F5EFF9; --purple-mist:#EDE3F5;
+      --green:#4A8C68; --green-pale:#EBF5EF; --gold:#C49A3C; --gold-pale:#FBF4E3;
+      --cream:#FDF8F2; --warm-white:#FFFDF9; --text:#2A1F38; --text-mid:#5A4E70; --text-light:#8C82A0;
+      --shadow-sm:0 2px 12px rgba(92,40,128,0.07); --shadow-md:0 6px 32px rgba(92,40,128,0.10);
+      --radius:20px; --radius-sm:12px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:var(--text);background:var(--warm-white);line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .design-note{background:var(--gold-pale);border-bottom:1px solid #E8D298;text-align:center;padding:9px 20px;font-size:12px;color:#7A5C1A;}
+    .design-note strong{font-weight:600;}
+    /* nav */
+    nav{position:sticky;top:0;z-index:200;background:rgba(253,248,242,0.96);border-bottom:1px solid rgba(92,40,128,0.1);backdrop-filter:blur(12px);}
+    .nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;gap:20px;}
+    .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
+    .nav-logo img{width:46px;height:46px;object-fit:contain;}
+    .nav-logo-text .name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--purple);line-height:1.1;}
+    .nav-logo-text .tagline{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);font-weight:500;margin-top:1px;}
+    .nav-tabs{display:flex;align-items:center;gap:4px;}
+    .nav-tab{padding:7px 14px;border-radius:100px;font-size:13px;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .2s;}
+    .nav-tab:hover{background:var(--purple-mist);color:var(--purple);}
+    .nav-tab.current{background:var(--purple-mist);color:var(--purple);}
+    .nav-donate-btn{background:var(--gold);color:white;padding:9px 22px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:all .2s;}
+    .nav-donate-btn:hover{background:var(--purple);}
+    /* hero */
+    .hero{background:linear-gradient(135deg,var(--purple) 0%,#3D1060 100%);padding:64px 28px;text-align:center;}
+    .hero .eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:14px;}
+    .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.5vw,50px);font-weight:500;color:white;margin-bottom:14px;}
+    .hero h1 em{font-style:italic;color:#E8C86A;}
+    .hero p{font-size:16px;color:rgba(255,255,255,0.8);max-width:580px;margin:0 auto;}
+    /* layout */
+    .section{padding:56px 28px;}
+    .inner{max-width:880px;margin:0 auto;}
+    .inner-wide{max-width:1040px;margin:0 auto;}
+    /* invitation */
+    .invite{background:var(--purple-pale);border-radius:var(--radius);padding:36px 40px;box-shadow:var(--shadow-sm);}
+    .invite .quote{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;line-height:1.55;color:var(--text);}
+    .invite .sig{margin-top:18px;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--purple-soft);}
+    /* steps */
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;}
+    .step{text-align:center;padding:8px;}
+    .step .n{width:36px;height:36px;margin:0 auto 12px;background:var(--purple);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;}
+    .step h4{font-size:14px;font-weight:600;margin-bottom:4px;}
+    .step p{font-size:13px;color:var(--text-mid);line-height:1.6;}
+    /* available months */
+    .months{background:var(--cream);}
+    .section-head{text-align:center;margin-bottom:34px;}
+    .section-head .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple-soft);}
+    .section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,36px);font-weight:600;margin-top:8px;}
+    .month-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .month-card{background:var(--warm-white);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm);text-align:center;border:1px solid transparent;transition:box-shadow .2s,transform .2s;}
+    .month-card.open:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+    .month-card .mo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--text);}
+    .month-card .yr{font-size:13px;color:var(--text-light);margin-bottom:14px;}
+    .pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.04em;padding:4px 12px;border-radius:100px;margin-bottom:16px;}
+    .pill-open{background:var(--green-pale);color:var(--green);}
+    .pill-taken{background:var(--purple-pale);color:var(--text-light);}
+    .btn-reserve{display:inline-block;background:var(--purple);color:white;border:none;cursor:pointer;font-family:'Inter',sans-serif;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;transition:background .2s;}
+    .btn-reserve:hover{background:var(--purple-soft);}
+    .btn-reserve:disabled{background:var(--purple-mist);color:var(--text-light);cursor:default;}
+    /* form */
+    .form-card{background:var(--warm-white);border-radius:var(--radius);padding:36px 40px;box-shadow:var(--shadow-md);}
+    .form-card h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin-bottom:6px;}
+    .form-card .sub{font-size:14px;color:var(--text-mid);margin-bottom:24px;}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .field{margin-bottom:14px;}
+    .field.full{grid-column:1/-1;}
+    label{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:6px;}
+    input,select,textarea{width:100%;padding:11px 16px;border:1.5px solid rgba(92,40,128,0.15);border-radius:var(--radius-sm);font-size:14px;font-family:'Inter',sans-serif;background:var(--warm-white);color:var(--text);outline:none;transition:border-color .2s;}
+    input:focus,select:focus,textarea:focus{border-color:var(--purple-soft);}
+    textarea{resize:vertical;min-height:72px;}
+    .submit{width:100%;margin-top:8px;background:var(--purple);color:white;border:none;padding:14px;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s;}
+    .submit:hover{background:var(--purple-soft);}
+    .form-note{text-align:center;margin-top:12px;font-size:12px;color:var(--text-light);min-height:16px;}
+    /* footer */
+    footer{background:var(--text);color:rgba(255,255,255,0.6);padding:36px 28px;text-align:center;font-size:13px;}
+    footer a{color:rgba(255,255,255,0.75);text-decoration:none;}
+    @media(max-width:900px){
+      .nav-tabs{display:none;}
+    }
+    @media(max-width:760px){
+      .steps{grid-template-columns:1fr 1fr;row-gap:24px;}
+      .month-grid{grid-template-columns:1fr;}
+      .grid2{grid-template-columns:1fr;}
+      .invite{padding:26px 22px;}
+      .form-card{padding:26px 22px;}
+    }
+    @media(max-width:600px){
+      .nav-inner{padding:10px 16px;gap:10px;}
+      .nav-logo img{width:38px;height:38px;}
+      .nav-logo-text .name{font-size:15px;}
+      .nav-logo-text .tagline{display:none;}
+      .nav-donate-btn{padding:8px 15px;font-size:12px;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="design-note">
+  <strong>Working Proof of Concept</strong> — Built by Kirkworks for Esther's Place of Grace · This replaces the Sign Up Genius luncheon page. The form below is a walk-through; it isn't collecting anything yet.
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="https://static.wixstatic.com/media/570570_bb9ef1c1a1474d528f0b2626a423f9c1~mv2.png/v1/fill/w_284,h_281,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/EPOGLOGOFINALBORDER.png" alt="Esther's Place of Grace Logo" />
+      <div class="nav-logo-text">
+        <div class="name">Esther's Place of Grace</div>
+        <div class="tagline">Faith-Based Maternity Home · Newark, OH</div>
+      </div>
+    </a>
+    <div class="nav-tabs">
+      <a href="index.html" class="nav-tab">Home</a>
+      <a href="index.html#page-program" class="nav-tab">Program</a>
+      <a href="index.html#page-volunteer" class="nav-tab">Volunteer</a>
+      <a href="luncheon.html" class="nav-tab current">Luncheons</a>
+      <a href="index.html#page-newsletters" class="nav-tab">Newsletter</a>
+    </div>
+    <a href="index.html#page-donate" class="nav-donate-btn">Give Now</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">✦ Gather Your Friends</span>
+  <h1>Host a <em>Luncheon</em></h1>
+  <p>Reserve a month, gather a few friends, and share a meal while Mary tells the story of Esther's Place of Grace.</p>
+</div>
+
+<!-- Mary's invitation (her words) -->
+<section class="section">
+  <div class="inner">
+    <div class="invite">
+      <p class="quote">"Do you want to learn more about Esther's Place of Grace? Reserve a date and gather your friends &amp; we can enjoy a luncheon together. Add your information to the month you choose along with the intended date and invite your friends to come. Indicate if your luncheon will be at your home, a restaurant or the maternity home. Decide what is on the menu and a time for the event. You are responsible for planning the menu, supplying the food and friends. I will come to share about Esther's Place of Grace with you and your friends!"</p>
+      <p class="sig">— Mary</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h4>Reserve a month</h4><p>Pick an open month below. There's one luncheon per month.</p></div>
+      <div class="step"><div class="n">2</div><h4>Choose your details</h4><p>Your date, your place, your time. Home, a restaurant, or the maternity home.</p></div>
+      <div class="step"><div class="n">3</div><h4>Plan and invite</h4><p>Plan the menu, supply the food, and invite your friends.</p></div>
+      <div class="step"><div class="n">4</div><h4>Mary comes to share</h4><p>Mary joins you and your guests to share about Esther's Place.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Available months -->
+<section class="section months">
+  <div class="inner-wide">
+    <div class="section-head">
+      <span class="eyebrow">Available Dates</span>
+      <h2>Reserve a month</h2>
+    </div>
+    <div class="month-grid">
+      <div class="month-card">
+        <div class="mo">June</div><div class="yr">2026</div>
+        <span class="pill pill-taken">Reserved</span><br>
+        <button class="btn-reserve" disabled>Reserved</button>
+      </div>
+      <div class="month-card open">
+        <div class="mo">July</div><div class="yr">2026</div>
+        <span class="pill pill-open">1 spot open</span><br>
+        <button class="btn-reserve" data-month="July 2026">Reserve July →</button>
+      </div>
+      <div class="month-card open">
+        <div class="mo">August</div><div class="yr">2026</div>
+        <span class="pill pill-open">1 spot open</span><br>
+        <button class="btn-reserve" data-month="August 2026">Reserve August →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reservation form -->
+<section class="section" id="reserve">
+  <div class="inner">
+    <div class="form-card">
+      <h2>Reserve your luncheon</h2>
+      <div class="sub">Fill this out and we'll confirm your date with you. You bring the place, the menu, and the friends; Mary brings the story.</div>
+      <form class="fs-form" action="https://formspree.io/f/REPLACE_WITH_LUNCHEON_FORM_ID" method="POST">
+        <input type="hidden" name="_subject" value="New luncheon reservation - Esther's Place of Grace" />
+        <div class="grid2">
+          <div class="field"><label>Your name</label><input type="text" name="Name" placeholder="Jane Smith" required /></div>
+          <div class="field"><label>Email</label><input type="email" name="email" placeholder="jane@example.com" required /></div>
+          <div class="field"><label>Phone</label><input type="tel" name="Phone" placeholder="(614) 555-0100" /></div>
+          <div class="field"><label>Which month?</label>
+            <select name="Month" id="month-select" required>
+              <option value="" disabled selected>Choose a month</option>
+              <option>July 2026</option>
+              <option>August 2026</option>
+            </select>
+          </div>
+          <div class="field"><label>Your intended date</label><input type="date" name="Intended date" /></div>
+          <div class="field"><label>Time of the event</label><input type="time" name="Time" /></div>
+          <div class="field"><label>Where will it be held?</label>
+            <select name="Location" required>
+              <option value="" disabled selected>Choose a location</option>
+              <option>My home</option>
+              <option>A restaurant</option>
+              <option>The maternity home</option>
+            </select>
+          </div>
+          <div class="field"><label>About how many guests?</label><input type="number" name="Guests" min="1" placeholder="6" /></div>
+          <div class="field full"><label>Menu plans or anything else (optional)</label><textarea name="Notes" placeholder="What you're thinking for the menu, questions, etc."></textarea></div>
+        </div>
+        <button type="submit" class="submit">Reserve my luncheon →</button>
+        <p class="fs-status form-note" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Esther's Place of Grace · Newark, OH · <a href="index.html">Back to home</a></p>
+  <p style="margin-top:8px;color:rgba(255,255,255,0.4);">Concept by Kirkworks · Not the live site.</p>
+</footer>
+
+<!-- Reserve buttons prefill the form; Formspree handler (demo-safe) -->
+<script>
+(function(){
+  // month "Reserve" buttons jump to the form and preselect the month
+  document.querySelectorAll('.btn-reserve[data-month]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var sel = document.getElementById('month-select');
+      if (sel) sel.value = b.getAttribute('data-month');
+      document.getElementById('reserve').scrollIntoView({behavior:'smooth'});
+    });
+  });
+  // form submit handler (demo mode until a Formspree ID / Google Sheet is connected)
+  document.querySelectorAll('form.fs-form').forEach(function(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var status = form.querySelector('.fs-status');
+      var action = form.getAttribute('action') || '';
+      function say(m,c){ if(status){ status.textContent=m; status.style.color=c||''; } }
+      if (action.indexOf('REPLACE_WITH') !== -1){
+        say('Demo mode - this is where your reservation will go once the form is connected (to a Google Sheet). Nothing is sent yet.', '#8A6020');
+        return;
+      }
+      say('Sending...');
+      fetch(action, {method:'POST', body:new FormData(form), headers:{'Accept':'application/json'}})
+        .then(function(r){ if(r.ok){ form.reset(); say('Thank you! We received your reservation and will confirm your date soon.', '#4A8C68'); }
+          else { say('Something went wrong. Please email marydow@esthersplaceofgrace.com.', '#B23B3B'); } })
+        .catch(function(){ say('Something went wrong. Please email marydow@esthersplaceofgrace.com.', '#B23B3B'); });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Resources & Documents — Esther's Place of Grace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+/* Shared styles for Esther's Place of Grace mockup pages (apply, banquet, resources). */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --purple:#5C2880; --purple-soft:#7A44A0; --purple-pale:#F5EFF9; --purple-mist:#EDE3F5;
+  --green:#4A8C68; --green-pale:#EBF5EF; --gold:#C49A3C; --gold-pale:#FBF4E3;
+  --cream:#FDF8F2; --warm-white:#FFFDF9; --text:#2A1F38; --text-mid:#5A4E70; --text-light:#8C82A0;
+  --shadow-sm:0 2px 12px rgba(92,40,128,0.07); --shadow-md:0 6px 32px rgba(92,40,128,0.10);
+  --radius:20px; --radius-sm:12px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--warm-white);line-height:1.65;-webkit-font-smoothing:antialiased;}
+.design-note{background:var(--gold-pale);border-bottom:1px solid #E8D298;text-align:center;padding:9px 20px;font-size:12px;color:#7A5C1A;}
+.design-note strong{font-weight:600;}
+/* nav */
+nav{position:sticky;top:0;z-index:200;background:rgba(253,248,242,0.96);border-bottom:1px solid rgba(92,40,128,0.1);backdrop-filter:blur(12px);}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;gap:20px;}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0;}
+.nav-logo img{width:46px;height:46px;object-fit:contain;}
+.nav-logo-text .name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--purple);line-height:1.1;}
+.nav-logo-text .tagline{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);font-weight:500;margin-top:1px;}
+.nav-tabs{display:flex;align-items:center;gap:4px;}
+.nav-tab{padding:7px 14px;border-radius:100px;font-size:13px;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .2s;}
+.nav-tab:hover{background:var(--purple-mist);color:var(--purple);}
+.nav-tab.current{background:var(--purple-mist);color:var(--purple);}
+.nav-donate-btn{background:var(--gold);color:white;padding:9px 22px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:all .2s;}
+.nav-donate-btn:hover{background:var(--purple);}
+/* hero */
+.hero{background:linear-gradient(135deg,var(--purple) 0%,#3D1060 100%);padding:64px 28px;text-align:center;}
+.hero.green{background:linear-gradient(135deg,var(--green) 0%,#2D6E4E 100%);}
+.hero .eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:14px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.5vw,50px);font-weight:500;color:white;margin-bottom:14px;}
+.hero h1 em{font-style:italic;color:#E8C86A;}
+.hero p{font-size:16px;color:rgba(255,255,255,0.82);max-width:600px;margin:0 auto;}
+/* layout */
+.section{padding:56px 28px;}
+.inner{max-width:880px;margin:0 auto;}
+.inner-wide{max-width:1040px;margin:0 auto;}
+.section-head{text-align:center;margin-bottom:34px;}
+.section-head .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple-soft);}
+.section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,36px);font-weight:600;margin-top:8px;}
+.lead{font-size:16px;color:var(--text-mid);max-width:660px;margin:10px auto 0;text-align:center;}
+.cream{background:var(--cream);}
+/* two-column */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+/* cards */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.card{background:var(--warm-white);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);transition:box-shadow .2s,transform .2s;}
+.card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.card .icon{width:48px;height:48px;background:var(--purple-pale);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:8px;}
+.card p{font-size:14px;color:var(--text-mid);line-height:1.7;}
+.card .meta{font-size:12px;color:var(--text-light);margin-top:12px;}
+.pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.04em;padding:4px 12px;border-radius:100px;margin-top:14px;}
+.pill-soon{background:var(--gold-pale);color:#8A6020;}
+.pill-open{background:var(--green-pale);color:var(--green);}
+/* criteria list */
+.criteria-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:20px;}
+.criteria-list{list-style:none;}
+.criteria-list li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(92,40,128,0.08);font-size:14px;color:var(--text-mid);}
+.criteria-list li:last-child{border-bottom:none;}
+.crit{color:var(--green);font-weight:700;margin-top:1px;}
+/* process */
+.process-card{background:var(--warm-white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow-sm);}
+.process-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:24px;}
+.proc-step{display:flex;gap:16px;margin-bottom:22px;}
+.proc-step:last-of-type{margin-bottom:0;}
+.proc-num{width:30px;height:30px;min-width:30px;background:var(--purple);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.proc-body h4{font-size:14px;font-weight:600;margin-bottom:3px;}
+.proc-body p{font-size:13px;color:var(--text-mid);line-height:1.6;}
+/* form */
+.form-card{background:var(--warm-white);border-radius:var(--radius);padding:36px 40px;box-shadow:var(--shadow-md);}
+.form-card h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:6px;}
+.form-card .sub{font-size:14px;color:var(--text-mid);margin-bottom:24px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.field{margin-bottom:14px;}
+.field.full{grid-column:1/-1;}
+label{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:6px;}
+input,select,textarea{width:100%;padding:11px 16px;border:1.5px solid rgba(92,40,128,0.15);border-radius:var(--radius-sm);font-size:14px;font-family:'Inter',sans-serif;background:var(--warm-white);color:var(--text);outline:none;transition:border-color .2s;}
+input:focus,select:focus,textarea:focus{border-color:var(--purple-soft);}
+textarea{resize:vertical;min-height:80px;}
+.submit{width:100%;margin-top:8px;background:var(--purple);color:white;border:none;padding:14px;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s;}
+.submit:hover{background:var(--purple-soft);}
+.form-note{text-align:center;margin-top:12px;font-size:12px;color:var(--text-light);min-height:16px;}
+.soft-note{font-size:13px;color:var(--text-light);line-height:1.7;margin-top:18px;}
+/* buttons */
+.btn-primary{display:inline-block;background:var(--purple);color:white;padding:13px 28px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s;border:none;cursor:pointer;}
+.btn-primary:hover{background:var(--purple-soft);}
+.btn-gold{display:inline-block;background:var(--gold);color:white;padding:13px 28px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s;}
+.btn-gold:hover{background:#A8832A;}
+.center{text-align:center;}
+/* footer */
+footer{background:var(--text);color:rgba(255,255,255,0.6);padding:36px 28px;text-align:center;font-size:13px;}
+footer a{color:rgba(255,255,255,0.75);text-decoration:none;}
+footer a:hover{color:white;}
+/* responsive */
+@media(max-width:1100px){.nav-tabs{display:none;}}
+@media(max-width:760px){.two-col{grid-template-columns:1fr;gap:32px;}.card-grid{grid-template-columns:1fr;}.grid2{grid-template-columns:1fr;}.form-card{padding:26px 22px;}}
+@media(max-width:600px){.nav-inner{padding:10px 16px;gap:10px;}.nav-logo img{width:38px;height:38px;}.nav-logo-text .name{font-size:15px;}.nav-logo-text .tagline{display:none;}.nav-donate-btn{padding:8px 15px;font-size:12px;}}
+  </style>
+</head>
+<body>
+
+<div class="design-note">
+  <strong>Working Proof of Concept</strong> — Placeholder page. The real documents get re-hosted here when we move off the old site.
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="https://static.wixstatic.com/media/570570_bb9ef1c1a1474d528f0b2626a423f9c1~mv2.png/v1/fill/w_284,h_281,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/EPOGLOGOFINALBORDER.png" alt="Esther's Place of Grace Logo" />
+      <div class="nav-logo-text">
+        <div class="name">Esther's Place of Grace</div>
+        <div class="tagline">Faith-Based Maternity Home · Newark, OH</div>
+      </div>
+    </a>
+    <div class="nav-tabs">
+      <a href="index.html" class="nav-tab">Home</a>
+      <a href="index.html#page-program" class="nav-tab">Program</a>
+      <a href="index.html#page-volunteer" class="nav-tab">Volunteer</a>
+      <a href="apply.html" class="nav-tab">Apply</a>
+      <a href="banquet.html" class="nav-tab">Banquet</a>
+      <a href="index.html#page-newsletters" class="nav-tab">Newsletter</a>
+    </div>
+    <a href="https://engage.suran.com/esthersplaceofgrace/s/give/new-gift?slug=203ef64c7d1442b" class="nav-donate-btn">Give Now</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">✦ Resources</span>
+  <h1>Resources &amp; <em>Documents</em></h1>
+  <p>The documents that tell the story of Esther's Place, who we are, what we believe, and the impact your support makes.</p>
+</div>
+
+<section class="section">
+  <div class="inner-wide">
+    <div class="card-grid">
+      <div class="card">
+        <div class="icon">📄</div>
+        <h3>Statement of Faith</h3>
+        <p>What we believe and the faith foundation our home and programs are built on.</p>
+        <span class="pill pill-soon">Coming to the new site</span>
+      </div>
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>2025 Annual Report</h3>
+        <p>A look at the past year, the women served, and how gifts were put to work.</p>
+        <span class="pill pill-soon">Coming to the new site</span>
+      </div>
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>2024 Annual Report</h3>
+        <p>The prior year in review, including impact, finances, and growth.</p>
+        <span class="pill pill-soon">Coming to the new site</span>
+      </div>
+      <div class="card">
+        <div class="icon">🪧</div>
+        <h3>Rack Card</h3>
+        <p>A printable one-page overview of Esther's Place to share with your church or group.</p>
+        <span class="pill pill-soon">Coming to the new site</span>
+      </div>
+      <div class="card">
+        <div class="icon">✝️</div>
+        <h3>Heartbeat International</h3>
+        <p>We are a proud affiliate of Heartbeat International.</p>
+        <p class="meta"><a href="https://www.heartbeatinternational.org/" style="color:var(--purple-soft);font-weight:600;text-decoration:none;">Visit Heartbeat International →</a></p>
+      </div>
+      <div class="card">
+        <div class="icon">📬</div>
+        <h3>Newsletter</h3>
+        <p>Updates from inside the home, banquet invitations, and our annual report.</p>
+        <p class="meta"><a href="index.html#page-newsletters" style="color:var(--purple-soft);font-weight:600;text-decoration:none;">Sign up on the home page →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Esther's Place of Grace · 614-226-0864 · <a href="mailto:marydow@esthersplaceofgrace.com">marydow@esthersplaceofgrace.com</a> · <a href="index.html">Back to home</a></p>
+  <p style="margin-top:8px;color:rgba(255,255,255,0.4);">Concept by Kirkworks · Not the live site.</p>
+</footer>
+
+</body>
+</html>
