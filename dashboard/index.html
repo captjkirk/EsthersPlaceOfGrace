@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Esther's Place — Operations Dashboard (internal POC)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --purple:#5C2880; --purple-soft:#7A44A0; --purple-pale:#F5EFF9;
+    --green:#4A8C68; --green-pale:#EBF5EF; --gold:#C49A3C; --gold-pale:#FBF4E3;
+    --cream:#FDF8F2; --white:#FFFDF9; --text:#2A1F38; --mid:#5A4E70; --light:#8C82A0;
+    --line:rgba(92,40,128,0.12); --shadow:0 2px 14px rgba(92,40,128,0.08);
+  }
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;padding:24px;}
+  .wrap{max-width:1080px;margin:0 auto;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px;}
+  h1{font-size:22px;font-weight:700;color:var(--purple);}
+  .sub{font-size:13px;color:var(--mid);margin-bottom:18px;}
+  .badge{background:var(--gold-pale);border:1px solid #E8D298;color:#7A5C1A;font-size:11px;font-weight:600;padding:6px 12px;border-radius:100px;white-space:nowrap;}
+  /* tabs */
+  .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:20px;flex-wrap:wrap;}
+  .tab{padding:9px 16px;font-size:13px;font-weight:600;color:var(--mid);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;font-family:inherit;}
+  .tab:hover{color:var(--purple);}
+  .tab.active{color:var(--purple);border-bottom-color:var(--purple);}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+  .kpi{background:var(--white);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);}
+  .kpi .num{font-size:28px;font-weight:700;line-height:1;}
+  .kpi .lbl{font-size:12px;color:var(--mid);margin-top:6px;}
+  .kpi .delta{font-size:11px;font-weight:600;margin-top:8px;display:inline-block;}
+  .up{color:var(--green);} .flat{color:var(--light);}
+  .card{background:var(--white);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;}
+  .card h2{font-size:14px;font-weight:700;letter-spacing:.02em;margin-bottom:2px;}
+  .card .note{font-size:12px;color:var(--light);margin-bottom:16px;}
+  .funnel{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+  .stage{text-align:center;}
+  .stage .bar{height:8px;border-radius:100px;background:var(--purple);margin:0 auto 10px;}
+  .stage .c{font-size:22px;font-weight:700;}
+  .stage .n{font-size:11px;color:var(--mid);margin-top:2px;line-height:1.3;}
+  table{width:100%;border-collapse:collapse;}
+  th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--light);padding:6px 8px;border-bottom:1px solid var(--line);}
+  td{font-size:13px;padding:9px 8px;border-bottom:1px solid var(--line);}
+  tr.clickable{cursor:pointer;}
+  tr.clickable:hover td{background:var(--purple-pale);}
+  tbody tr:last-child td{border-bottom:none;}
+  .pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;white-space:nowrap;}
+  .progress-mini{display:inline-block;width:60px;height:6px;border-radius:100px;background:var(--purple-pale);vertical-align:middle;margin-right:8px;position:relative;}
+  .progress-mini i{position:absolute;left:0;top:0;bottom:0;border-radius:100px;background:var(--purple);}
+  .ready{color:var(--green);font-weight:600;}
+  .chart{display:flex;align-items:flex-end;gap:18px;height:170px;padding-top:10px;}
+  .col-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+  .col-bar .b{width:70%;max-width:46px;background:var(--purple);border-radius:6px 6px 0 0;}
+  .col-bar .b.hot{background:var(--gold);}
+  .col-bar .v{font-size:11px;font-weight:600;color:var(--mid);margin-bottom:6px;}
+  .col-bar .m{font-size:11px;color:var(--light);margin-top:8px;}
+  .giving-row{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:center;}
+  .ytd{background:var(--purple-pale);border-radius:12px;padding:18px 20px;}
+  .ytd .big{font-size:24px;font-weight:700;color:var(--purple);}
+  .ytd .l{font-size:12px;color:var(--mid);margin-top:4px;}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  footer{font-size:12px;color:var(--light);text-align:center;margin-top:8px;line-height:1.6;}
+  /* detail drawer */
+  .backdrop{position:fixed;inset:0;background:rgba(30,10,50,.4);opacity:0;pointer-events:none;transition:.2s;z-index:50;}
+  .backdrop.open{opacity:1;pointer-events:auto;}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:92vw;background:var(--white);box-shadow:-8px 0 40px rgba(92,40,128,.2);z-index:60;transform:translateX(100%);transition:.25s;overflow-y:auto;padding:26px;}
+  .drawer.open{transform:translateX(0);}
+  .drawer .x{position:absolute;top:18px;right:20px;font-size:22px;color:var(--light);background:none;border:none;cursor:pointer;line-height:1;}
+  .drawer h3{font-size:20px;font-weight:700;color:var(--purple);}
+  .drawer .role{font-size:13px;color:var(--mid);margin-bottom:4px;}
+  .drawer .meta{font-size:12px;color:var(--light);margin-bottom:18px;}
+  .checklist{list-style:none;margin-bottom:18px;}
+  .checklist li{font-size:13px;padding:7px 0;display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line);}
+  .checklist li:last-child{border-bottom:none;}
+  .ck{font-weight:700;margin-top:1px;}
+  .ck.done{color:var(--green);} .ck.todo{color:var(--gold);}
+  .dh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--light);margin:6px 0 4px;}
+  @media(max-width:760px){.kpis{grid-template-columns:1fr 1fr;}.cols{grid-template-columns:1fr;}.funnel{grid-template-columns:1fr 1fr 1fr;row-gap:16px;}.giving-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <h1>Esther's Place — Operations Dashboard</h1>
+    <span class="badge">Proof of concept · sample data · not connected to live systems yet</span>
+  </div>
+  <div class="sub">A held proof-of-concept. Numbers are placeholders to show the shape. Click any volunteer or applicant row to see what's done and what's left. Real data wires in once we have access.</div>
+
+  <div class="tabs">
+    <button class="tab active" data-p="overview">Overview</button>
+    <button class="tab" data-p="volunteers">Volunteer data</button>
+    <button class="tab" data-p="residents">Resident data</button>
+    <button class="tab" data-p="financial">Financial data</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="panel active" id="overview">
+    <div class="kpis">
+      <div class="kpi"><div class="num" style="color:var(--purple)">14</div><div class="lbl">Active volunteers</div><div class="delta up">+2 this month</div></div>
+      <div class="kpi"><div class="num">5</div><div class="lbl">Volunteers in pipeline</div><div class="delta flat">1 near approval</div></div>
+      <div class="kpi"><div class="num">3<span style="font-size:16px;color:var(--light)">/3</span></div><div class="lbl">Residents housed</div><div class="delta flat">at capacity</div></div>
+      <div class="kpi"><div class="num" style="color:var(--green)">$4,820</div><div class="lbl">Giving this month</div><div class="delta up">+19% YoY</div></div>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <h2>Volunteer pipeline</h2><div class="note">Interest to approved</div>
+        <div id="ov-vol-funnel" class="funnel"></div>
+      </div>
+      <div class="card">
+        <h2>Resident applicants</h2><div class="note">Inquiry to move-in</div>
+        <div id="ov-res-funnel" class="funnel"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Giving — last 6 months</h2><div class="note">From QuickBooks / the donor system once connected</div>
+      <div id="ov-chart" class="chart"></div>
+    </div>
+  </div>
+
+  <!-- VOLUNTEERS -->
+  <div class="panel" id="volunteers">
+    <div class="card">
+      <h2>Pipeline</h2><div class="note">Everyone between first interest and approval</div>
+      <div id="vol-funnel" class="funnel"></div>
+    </div>
+    <div class="card">
+      <h2>In progress</h2><div class="note">Sorted by how far along they are. Click a row for details.</div>
+      <table><thead><tr><th>Name</th><th>Interested in</th><th>Progress</th><th>Stage</th><th>Last update</th></tr></thead>
+      <tbody id="vol-inprogress"></tbody></table>
+    </div>
+    <div class="card">
+      <h2>Active volunteers</h2><div class="note">Approved and serving</div>
+      <table><thead><tr><th>Name</th><th>Role</th><th>Since</th><th>Hrs/mo</th></tr></thead>
+      <tbody id="vol-active"></tbody></table>
+    </div>
+  </div>
+
+  <!-- RESIDENTS -->
+  <div class="panel" id="residents">
+    <div class="card">
+      <h2>Applicant pipeline</h2><div class="note">Inquiry to move-in</div>
+      <div id="res-funnel" class="funnel"></div>
+    </div>
+    <div class="card">
+      <h2>Applicants in progress</h2><div class="note">Sorted by how far along they are. Click a row for details.</div>
+      <table><thead><tr><th>Name</th><th>Progress</th><th>Stage</th><th>Last update</th></tr></thead>
+      <tbody id="res-inprogress"></tbody></table>
+    </div>
+    <div class="card">
+      <h2>Current residents</h2><div class="note">First names only · in-program</div>
+      <table><thead><tr><th>Resident</th><th>Stage of program</th><th>Move-in</th></tr></thead>
+      <tbody id="res-current"></tbody></table>
+    </div>
+  </div>
+
+  <!-- FINANCIAL -->
+  <div class="panel" id="financial">
+    <div class="kpis">
+      <div class="kpi"><div class="num" style="color:var(--green)">$4,820</div><div class="lbl">Giving this month</div><div class="delta up">+19% YoY</div></div>
+      <div class="kpi"><div class="num">$23,600</div><div class="lbl">Giving YTD</div><div class="delta up">vs $19,900</div></div>
+      <div class="kpi"><div class="num">$3,900</div><div class="lbl">Avg monthly expenses</div><div class="delta flat">mock</div></div>
+      <div class="kpi"><div class="num">2.1<span style="font-size:15px;color:var(--light)"> mo</span></div><div class="lbl">Operating reserve</div><div class="delta flat">mock</div></div>
+    </div>
+    <div class="card">
+      <h2>Giving — last 6 months</h2><div class="note">* May spike = annual fundraising banquet</div>
+      <div class="giving-row">
+        <div id="fin-chart" class="chart"></div>
+        <div class="ytd">
+          <div class="big">$23,600</div><div class="l">Year to date</div>
+          <div class="big" style="font-size:18px;color:var(--green);margin-top:12px;">+19%</div>
+          <div class="l">vs same period last year</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Designated funds</h2><div class="note">mock placeholders</div>
+      <table><tbody>
+        <tr><td>New home fund</td><td style="text-align:right;font-weight:600;">$12,400</td></tr>
+        <tr><td>Resident support</td><td style="text-align:right;font-weight:600;">$6,150</td></tr>
+        <tr><td>General operating</td><td style="text-align:right;font-weight:600;">$5,050</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <footer>
+    Proof of concept by Kirkworks · 2026-06-19 · all figures are placeholders.<br>
+    Wires to real data once we have access: pipelines from the intake forms + the source-of-truth database; giving from QuickBooks / the donor system.
+  </footer>
+</div>
+
+<div class="backdrop" id="backdrop"></div>
+<aside class="drawer" id="drawer">
+  <button class="x" id="drawerX">&times;</button>
+  <h3 id="dName"></h3>
+  <div class="role" id="dRole"></div>
+  <div class="meta" id="dMeta"></div>
+  <div class="dh">Done</div>
+  <ul class="checklist" id="dDone"></ul>
+  <div class="dh">Still to do</div>
+  <ul class="checklist" id="dTodo"></ul>
+</aside>
+
+<script>
+const VSTAGES = ['Interested','Welcome sent','Videos done','Paperwork signed']; // approved volunteers leave the pipeline and become Active
+const RSTAGES = ['Inquiry','Phone screen','Interview','Accepted']; // housed applicants become Current residents
+
+const volunteers = [
+  {name:'Ruth A.', role:'Mentor', stage:3, updated:'Jun 18',
+   done:['Interest form','Welcome email opened','Watched all videos + passed quiz','Paperwork signed'],
+   todo:['Background check clears','Final approval by Mary']},
+  {name:'Sarah M.', role:'Mentor', stage:2, updated:'Jun 17',
+   done:['Interest form','Welcome email','Watched all videos + passed quiz'],
+   todo:['Sign paperwork (DocuSign)','Background check','Approval']},
+  {name:'Naomi P.', role:'Babysitter', stage:2, updated:'Jun 15',
+   done:['Interest form','Welcome email','Watched all videos + passed quiz'],
+   todo:['Sign paperwork (DocuSign)','Background check','Approval']},
+  {name:'Grace T.', role:'Driver', stage:1, updated:'Jun 18',
+   done:['Interest form','Welcome email sent'],
+   todo:['Watch videos + pass quiz','Sign paperwork','Background check','Approval']},
+  {name:'Hannah K.', role:'Handyman', stage:0, updated:'Jun 19',
+   done:['Submitted interest form'],
+   todo:['Welcome email','Watch videos + pass quiz','Sign paperwork','Background check','Approval']},
+];
+const activeVols = [
+  {name:'Esther L.', role:'Church sponsor', since:'Jun 2026', hrs:'—'},
+  {name:'Deborah W.', role:'Mentor', since:'Jan 2025', hrs:6},
+  {name:'Joanna F.', role:'Driver', since:'Mar 2025', hrs:8},
+  {name:'Miriam C.', role:'Babysitter', since:'2024', hrs:10},
+  {name:'Lydia S.', role:'Mentor', since:'2023', hrs:4},
+  {name:'Tabitha R.', role:'Handyman', since:'2024', hrs:5},
+  {name:'Priscilla N.', role:'Sponsor', since:'Jan 2026', hrs:'—'},
+];
+const applicants = [
+  {name:'Alyssa M.', role:'Applicant', stage:3, updated:'Jun 10',
+   done:['Inquiry form','Phone screen passed','In-person interview','Accepted'],
+   todo:['Schedule move-in','Complete intake paperwork']},
+  {name:'Jasmine T.', role:'Applicant', stage:2, updated:'Jun 16',
+   done:['Inquiry form','Phone screen passed','Criteria confirmed'],
+   todo:['In-person interview decision','Acceptance','Move-in']},
+  {name:'Destiny W.', role:'Applicant', stage:1, updated:'Jun 18',
+   done:['Inquiry form submitted'],
+   todo:['Phone screen','Interview','Decision']},
+  {name:'Brianna K.', role:'Applicant', stage:0, updated:'Jun 19',
+   done:['Submitted inquiry'],
+   todo:['Phone screen','Interview','Decision']},
+];
+const currentResidents = [
+  {name:'Maria', prog:'2nd trimester', since:'Apr 2026'},
+  {name:'Kayla', prog:'Newborn + aftercare', since:'Jan 2026'},
+  {name:'Tasha', prog:'3rd trimester', since:'Mar 2026'},
+];
+const giving = [['Jan',3.1,55],['Feb',2.8,49],['Mar',3.6,64],['Apr',4.2,74],['May',5.1,100],['Jun',4.8,94]];
+
+function funnel(el, stages, items){
+  const counts = stages.map((_,i)=>items.filter(p=>p.stage>=i).length);
+  const max = Math.max(...counts,1);
+  el.innerHTML = stages.map((s,i)=>{
+    const last = i===stages.length-1;
+    return `<div class="stage"><div class="bar" style="width:${Math.max(20,counts[i]/max*100)}%;${last?'background:var(--green);':''}"></div><div class="c">${counts[i]}</div><div class="n">${s}</div></div>`;
+  }).join('');
+}
+function progressBar(stage, total){
+  const pct = Math.round((stage+1)/total*100);
+  return `<span class="progress-mini"><i style="width:${pct}%"></i></span>`;
+}
+function rowsInProgress(tbody, items, stages, kind){
+  const sorted = [...items].sort((a,b)=>b.stage-a.stage);
+  tbody.innerHTML = sorted.map((p,idx)=>{
+    const stageLabel = stages[p.stage];
+    const cols = kind==='vol'
+      ? `<td>${p.name}</td><td>${p.role}</td><td>${progressBar(p.stage,stages.length)}</td><td>${stageLabel}</td><td>${p.updated}</td>`
+      : `<td>${p.name}</td><td>${progressBar(p.stage,stages.length)}</td><td>${stageLabel}</td><td>${p.updated}</td>`;
+    return `<tr class="clickable" data-kind="${kind}" data-i="${idx}">${cols}</tr>`;
+  }).join('');
+  tbody._sorted = sorted;
+}
+function renderChart(el){
+  el.innerHTML = giving.map(([m,v,h])=>`<div class="col-bar"><div class="v">$${v}k</div><div class="b ${m==='May'?'hot':''}" style="height:${h}%"></div><div class="m">${m}${m==='May'?' *':''}</div></div>`).join('');
+}
+
+// render
+funnel(document.getElementById('ov-vol-funnel'), VSTAGES, volunteers);
+funnel(document.getElementById('ov-res-funnel'), RSTAGES, applicants);
+funnel(document.getElementById('vol-funnel'), VSTAGES, volunteers);
+funnel(document.getElementById('res-funnel'), RSTAGES, applicants);
+renderChart(document.getElementById('ov-chart'));
+renderChart(document.getElementById('fin-chart'));
+rowsInProgress(document.getElementById('vol-inprogress'), volunteers, VSTAGES, 'vol');
+rowsInProgress(document.getElementById('res-inprogress'), applicants, RSTAGES, 'res');
+document.getElementById('vol-active').innerHTML = activeVols.map(v=>`<tr><td>${v.name}</td><td>${v.role}</td><td>${v.since}</td><td>${v.hrs}</td></tr>`).join('');
+document.getElementById('res-current').innerHTML = currentResidents.map(r=>`<tr><td>${r.name}</td><td>${r.prog}</td><td>${r.since}</td></tr>`).join('');
+
+// tabs
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.p).classList.add('active');
+}));
+
+// detail drawer
+const drawer=document.getElementById('drawer'), backdrop=document.getElementById('backdrop');
+function openDetail(p, stages){
+  document.getElementById('dName').textContent=p.name;
+  document.getElementById('dRole').textContent=p.role;
+  document.getElementById('dMeta').textContent=`Stage: ${stages[p.stage]} · last update ${p.updated}`;
+  document.getElementById('dDone').innerHTML=p.done.map(d=>`<li><span class="ck done">✓</span>${d}</li>`).join('');
+  document.getElementById('dTodo').innerHTML=p.todo.length?p.todo.map(d=>`<li><span class="ck todo">○</span>${d}</li>`).join(''):'<li style="color:var(--light)">Nothing left</li>';
+  drawer.classList.add('open'); backdrop.classList.add('open');
+}
+function closeDrawer(){drawer.classList.remove('open');backdrop.classList.remove('open');}
+document.getElementById('drawerX').addEventListener('click',closeDrawer);
+backdrop.addEventListener('click',closeDrawer);
+document.addEventListener('click',e=>{
+  const tr=e.target.closest('tr.clickable'); if(!tr)return;
+  const kind=tr.dataset.kind, i=+tr.dataset.i;
+  if(kind==='vol') openDetail(document.getElementById('vol-inprogress')._sorted[i], VSTAGES);
+  else openDetail(document.getElementById('res-inprogress')._sorted[i], RSTAGES);
+});
+</script>
+</body>
+</html>
